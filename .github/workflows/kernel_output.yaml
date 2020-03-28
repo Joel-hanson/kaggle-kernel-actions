@@ -1,0 +1,34 @@
+name: Push kernels to kaggle
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # os: [ ubuntu-latest, macos-latest ]
+        os: [ ubuntu-latest ]
+        # python-version: [ '2.7.17', '3.6.10' ]
+        python-version: [ '3.6.10' ]
+    name: Python ${{ matrix.python-version }} ${{ matrix.os }} 
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Kernel output download
+      uses: ./
+      with:
+        kaggle_username: ${{ secrets.kaggle_username }}
+        kaggle_key: ${{ secrets.kaggle_key }}
+        kernel_id: joelhanson/new-test
+        collect_output: true
+    - name: Download outputs
+      uses: actions/upload-artifacts@v1
+      with:
+        name: outputs
+        path: outputs/outputs.zip
