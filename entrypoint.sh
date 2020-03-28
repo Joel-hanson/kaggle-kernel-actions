@@ -59,7 +59,7 @@ check_kernel_status() {
     exit 1
   fi
 
-  if [[ $KERNEL_STATUS == *'has status \"complete\"'* ]]; then
+  if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]]; then
     echo "Kernel run is completed"
   else
     echo "Kernel is still running..."
