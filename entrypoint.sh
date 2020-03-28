@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/bash
 export KAGGLE_USERNAME=$INPUT_KAGGLE_USERNAME
 export KAGGLE_KEY=$INPUT_KAGGLE_KEY
 
@@ -58,7 +58,7 @@ check_kernel_status() {
     cat kernel-metadata.json
     exit 1
   fi
-
+  echo `type [[`
   if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]]; then
     echo "Kernel run is completed"
   else
