@@ -83,16 +83,13 @@ submit_to_competition() {
 }
 
 # output donwload here
-echo $INPUT_COLLECT_OUTPUT
-if [ ! -z $INPUT_COLLECT_OUTPUT ] && $INPUT_COLLECT_OUTPUT; then
+if $INPUT_COLLECT_OUTPUT; then
   KERNEL_STATUS=$(kaggle k status $INPUT_KERNEL_ID)
   RESULT=$?
   if [ $RESULT -ne 0 ]; then
     echo "The kernel not found"
     exit 1
   fi
-  echo $KERNEL_STATUS
-  echo $INPUT_COLLECT_OUTPUT
   if [[ $KERNEL_STATUS == *'has status "complete"'* ]]; then
     echo "Kernel run is completed"
     mkdir -p $GITHUB_WORKSPACE/outputs
