@@ -84,7 +84,7 @@ submit_to_competition() {
 
 # output donwload here
 echo $INPUT_COLLECT_OUTPUT
-if [ ! -z $INPUT_COLLECT_OUTPUT ] && [ $INPUT_COLLECT_OUTPUT == true ]; then
+if [ ! -z $INPUT_COLLECT_OUTPUT ] && $INPUT_COLLECT_OUTPUT; then
   KERNEL_STATUS=$(kaggle k status $INPUT_KERNEL_ID)
   RESULT=$?
   if [ $RESULT -ne 0 ]; then
