@@ -3,7 +3,7 @@ name: Push kernels to kaggle
 on: push
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,6 +19,8 @@ jobs:
     - name: Kaggle Deploy And Commit
       uses: ./
       with:
+        kaggle_username: ${{ secrets.kaggle_username }}
+        kaggle_key: ${{ secrets.kaggle_key }}
         kaggle_make_new_kernel: false
         kaggle_metadata_path: kernel-metadata.json
         kernel_id: joelhanson/new-test
@@ -30,5 +32,3 @@ jobs:
         enable_internet: false
         competition: titanic
         submit_to_competition: false
-        kaggle_username: ${{ secrets.kaggle_username }}
-        kaggle_key: ${{ secrets.kaggle_key }}
