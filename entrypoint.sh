@@ -5,7 +5,7 @@ export KAGGLE_KEY=$INPUT_KAGGLE_KEY
 pip install kaggle flake8 --upgrade
 
 check_and_apply_competitions_variables() {
-  if [[ -z $INPUT_COMPETITION_SOURCES || "$INPUT_COMPETITION_SOURCES" != *"$INPUT_COMPETITION"* ]]; then
+  if [ -z $INPUT_COMPETITION_SOURCES || "$INPUT_COMPETITION_SOURCES" != *"$INPUT_COMPETITION"* ]; then
     $INPUT_COMPETITION_SOURCES=$INPUT_COMPETITION_SOURCES$INPUT_COMPETITION
     echo $INPUT_COMPETITION_SOURCES
   fi
@@ -13,7 +13,7 @@ check_and_apply_competitions_variables() {
 
 create_kaggle_metadata() {
   # create metadata file
-  if [[ -z $INPUT_KAGGLE_METADATA_PATH ]]; then
+  if [ -z $INPUT_KAGGLE_METADATA_PATH ]; then
     # check if the path is blank
     echo '{
       "id": "$INPUT_KERNEL_ID",
@@ -53,7 +53,7 @@ check_kernel_status() {
     exit 1
   fi
 
-  if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]]; then
+  if [ "$KERNEL_STATUS" == *"has status \"complete\""* ]; then
     echo "Kernel run is completed"
   else
     echo "Kernel is still running..."
@@ -80,7 +80,7 @@ submit_to_competition() {
 }
 
 # output donwload here
-if [[ ! -z $INPUT_COLLECT_OUTPUT ]]; then
+if [ ! -z $INPUT_COLLECT_OUTPUT ]; then
   KERNEL_STATUS=$(kaggle k status $INPUT_KERNEL_ID)
   RESULT=$?
   if [ $RESULT -ne 0 ]; then
@@ -88,7 +88,7 @@ if [[ ! -z $INPUT_COLLECT_OUTPUT ]]; then
     exit 1
   fi
 
-  if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]]; then
+  if [ "$KERNEL_STATUS" == *"has status \"complete\""* ]; then
     echo "Kernel run is completed"
     mkdir -p $GITHUB_WORKSPACE/outputs
     kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
