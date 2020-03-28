@@ -110,7 +110,7 @@ inputs:
   collect_output:
     description: "To download the out put of the last version"
     required: false
-    default: ""
+    default: false
 
 outputs:
   output:
