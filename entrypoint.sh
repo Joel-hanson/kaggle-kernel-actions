@@ -4,10 +4,6 @@ export KAGGLE_KEY=$INPUT_KAGGLE_KEY
 
 pip install kaggle flake8 --upgrade
 
-check_and_apply_competitions_variables
-create_kaggle_metadata
-check_kernel_status_and_deploy
-
 check_and_apply_competitions_variables() {
   if [ -z $INPUT_COMPETITION_SOURCES || "$INPUT_COMPETITION_SOURCES" != *"$INPUT_COMPETITION"*  ]; then
     $INPUT_COMPETITION_SOURCES = $INPUT_COMPETITION_SOURCES$INPUT_COMPETITION
@@ -83,6 +79,10 @@ submit_to_competition () {
 }
 
 
+# runs here
+check_and_apply_competitions_variables
+create_kaggle_metadata
+check_kernel_status_and_deploy
 
 # The step user follow:
 # - There is case where the user is coming as a newbee
