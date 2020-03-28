@@ -1,0 +1,21 @@
+{
+  "id": "joelhanson/github-action-test-3",
+  "id_no": 8600544,
+  "title": "github action test-3",
+  "code_file": "github_action_test.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "keywords": [],
+  "dataset_sources": [
+    "joelhanson/testdataset"
+  ],
+  "kernel_sources": [
+    "joelhanson/learn-machine-learning"
+  ],
+  "competition_sources": [
+    "titanic"
+  ]
+}
