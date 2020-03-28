@@ -53,6 +53,7 @@ check_kernel_status() {
   RESULT=$?
   if [ $RESULT -ne 0 ]; then
     echo "The kernel not found"
+    cat kernel-metadata.json
     exit 1
   fi
 
