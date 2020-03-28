@@ -51,7 +51,9 @@ create_kaggle_metadata() {
 check_kernel_status() {
   KERNEL_STATUS=$(kaggle k status $INPUT_KERNEL_ID)
   RESULT=$?
-  if [ $RESULT -ne 0 ]; then
+  echo "result $RESULT"
+  echo "status $KERNEL_STATUS"
+  if [ $RESULT -eq 1 ]; then
     echo "The kernel not found"
     cat kernel-metadata.json
     exit 1
