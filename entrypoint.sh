@@ -5,15 +5,15 @@ export KAGGLE_KEY=$INPUT_KAGGLE_KEY
 pip install kaggle flake8 --upgrade
 
 check_and_apply_competitions_variables() {
-  if [ -z $INPUT_COMPETITION_SOURCES || "$INPUT_COMPETITION_SOURCES" != *"$INPUT_COMPETITION"*  ]; then
-    $INPUT_COMPETITION_SOURCES = $INPUT_COMPETITION_SOURCES$INPUT_COMPETITION
+  if [[ -z $INPUT_COMPETITION_SOURCES || "$INPUT_COMPETITION_SOURCES" != *"$INPUT_COMPETITION"* ]]; then
+    $INPUT_COMPETITION_SOURCES=$INPUT_COMPETITION_SOURCES$INPUT_COMPETITION
     echo $INPUT_COMPETITION_SOURCES
   fi
 }
 
 create_kaggle_metadata() {
   # create metadata file
-  if [ -z $INPUT_KAGGLE_METADATA_PATH ]; then
+  if [[ -z $INPUT_KAGGLE_METADATA_PATH ]]; then
     # check if the path is blank
     echo '{
       "id": "$INPUT_KERNEL_ID",
@@ -38,23 +38,23 @@ create_kaggle_metadata() {
     }' >kernel-metadata.json
     echo "The metadata file created"
   else
-    if ! ls -d $INPUT_KAGGLE_METADATA_PATH > /dev/null 2>&1
-      then
-        mv $INPUT_KAGGLE_METADATA_PATH .
+    if ! ls -d $INPUT_KAGGLE_METADATA_PATH >/dev/null 2>&1; then
+      mv $INPUT_KAGGLE_METADATA_PATH .
     fi
     echo "The metadata file already exist"
   fi
 }
 
-check_kernel_status_and_deploy() {
+check_kernel_status() {
   KERNEL_STATUS=$(kaggle k status $INPUT_KERNEL_ID)
-  if $?; then
-    echo "The kernel is not found"
+  RESULT=$?
+  if [ $RESULT -ne 0 ]; then
+    echo "The kernel not found"
     exit 1
   fi
+
   if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]]; then
     echo "Kernel run is completed"
-    deploy
   else
     echo "Kernel is still running..."
     exit 1
@@ -63,7 +63,8 @@ check_kernel_status_and_deploy() {
 
 deploy() {
   output=$(kaggle k push)
-  if $?; then
+  RESULT=$?
+  if [ $RESULT -eq 0 ]; then
     echo "$output"
   else
     echo "There was an error while pushing the latest kernel"
@@ -71,18 +72,43 @@ deploy() {
   fi
 }
 
-submit_to_competition () {
-  if [ -z $INPUT_SUBMITION_MESSAGE];then
+submit_to_competition() {
+  if [ -z $INPUT_SUBMITION_MESSAGE]; then
     $INPUT_SUBMITION_MESSAGE=$(git log --no-merges -1 --oneline)
   fi
   kaggle c submit -f $INPUT_CODE_FILE_PATH -m $INPUT_SUBMITION_MESSAGE
 }
 
+# output donwload here
+if [[ ! -z $INPUT_COLLECT_OUTPUT ]]; then
+  KERNEL_STATUS=$(kaggle k status $INPUT_KERNEL_ID)
+  RESULT=$?
+  if [ $RESULT -ne 0 ]; then
+    echo "The kernel not found"
+    exit 1
+  fi
 
-# runs here
-check_and_apply_competitions_variables
-create_kaggle_metadata
-check_kernel_status_and_deploy
+  if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]]; then
+    echo "Kernel run is completed"
+    mkdir -p $GITHUB_WORKSPACE/outputs
+    kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
+    zip -r $GITHUB_WORKSPACE/outputs.zip $GITHUB_WORKSPACE/*
+  else
+    echo "Kernel is still running..."
+    exit 0
+  fi
+else
+  # runs here
+  check_and_apply_competitions_variables
+  create_kaggle_metadata
+  if $INPUT_DEPLOY_KERNEL; then
+    check_kernel_status
+    deploy
+  fi
+  if $INPUT_SUBMIT_TO_COMPETITION; then
+    submit_to_competition
+  fi
+fi
 
 # The step user follow:
 # - There is case where the user is coming as a newbee
