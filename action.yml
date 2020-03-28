@@ -1,0 +1,116 @@
+name: "Kaggle github actions"
+description: "Github action to upload kernels to kaggle."
+author: "Joel-hanson@github.com"
+
+inputs:
+  kaggle_make_new_kernel:
+    description:
+      "This should be enabled you are making a new kernel and pushing it to kaggle"
+    required: true
+    default: false
+
+  kaggle_metadata_path:
+    description:
+      "The path to the kaggle metadata file
+      further details can be found in the wiki https://github.com/Kaggle/kaggle-api/wiki/Kernel-Metadata"
+    required: false
+    default: ""
+
+  kernel_id:
+    description:
+      "The URL slug of your kernel. One of id or id_no must be specified. If both are, id_no will be preferred.
+        i. Your username slug
+        ii. A unique kernel slug
+        format: <user_name>/<kernel_slug>"
+    required: true
+    default: ""
+
+  kenel_id_no:
+    description: "The kernel's numeric ID. One of id or id_no must be specified. If both are, id_no will be preferred."
+    required: false
+    default: ""
+
+  kernel_title:
+    description: 
+      "The title of the kernel. Required for new kernels - optional for existing ones. Please be aware that kernel titles and slugs are linked to each other. A kernel slug is always the title lowercased with dashes (-) replacing spaces.
+        - If you wish to rename your kernel, you may change the title within the metadata. However, you will need to update the id as well AFTER the rename is complete."
+    required: true
+    default: ""
+
+  code_file_path:
+    description: "The path to your kernel source code. Required. It should be a relative to your github repository."
+    required: true
+    default: ""
+
+  language:
+    description: "The language your kernel is written in. Valid options are python, r, and rmarkdown. Required."
+    required: true
+    default: "python"
+
+  kernel_type:
+    description: "The type of kernel. Valid options are script and notebook. Required."
+    required: true
+    default: "main.py"
+
+  is_private:
+    description: "Whether or not the kernel should be private. If not specified, will be true."
+    required: true
+    default: true
+
+  enable_gpu:
+    description: "Whether or not the kernel should run on a GPU. If not specified, will be false."
+    required: false
+    default: false
+
+  enable_internet:
+    description: "Whether or not the kernel should be able to access the internet. If not specified, will be false."
+    required: false
+    default: false
+
+  kernel_keywords:
+    description: "The keywords for the kernel"
+    required: false
+    default: ""
+
+  dataset_sources:
+    description:  'A list of dataset sources, specified as "username/dataset-slug"'
+    required: false
+    default: ""
+
+  competition_sources:
+    description:  'A list of competition sources, specified as "competition-slug"'
+    required: false
+    default: ""
+
+  kernel_sources:
+    description:  'A list of kernel sources, specified as "username/kernel-slug"'
+    required: false
+    default: ""
+
+  competition:
+    description: "The competition that you want to participate in?"
+    required: true
+    default: ""
+
+  submit_to_competition:
+    description: "This is a boolean flag that tell the action to submit the kernel"
+    required: true
+    default: ""
+
+  submition_message:
+    description: "The competetion submission message? by default it will be the commit sha and the commit message"
+    required: true
+    default: ""
+
+outputs:
+  output:
+    description: "This will download the output that you create"
+
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+
+branding:
+  icon: "upload-cloud"
+  color: "gray-dark"
