@@ -88,6 +88,7 @@ if [ ! -z $INPUT_COLLECT_OUTPUT ]; then
     exit 1
   fi
   echo $KERNEL_STATUS
+  echo $INPUT_COLLECT_OUTPUT
   if [ $KERNEL_STATUS == *'has status "complete"'* ]; then
     echo "Kernel run is completed"
     mkdir -p $GITHUB_WORKSPACE/outputs
