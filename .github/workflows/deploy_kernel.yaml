@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
-        python-version: [ '2.7.17', '3.6.10' ]
+        # os: [ ubuntu-latest, macos-latest ]
+        os: [ ubuntu-latest ]
+        # python-version: [ '2.7.17', '3.6.10' ]
+        python-version: [ '3.6.10' ]
     name: Python ${{ matrix.python-version }} ${{ matrix.os }} 
 
     steps:
@@ -28,3 +30,5 @@ jobs:
         enable_internet: false
         competition: titanic
         submit_to_competition: false
+        kaggle_username: ${{ secrets.kaggle_username }}
+        kaggle_key: ${{ secrets.kaggle_key }}
