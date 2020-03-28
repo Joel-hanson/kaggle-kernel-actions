@@ -19,7 +19,7 @@ jobs:
     name: Python ${{ matrix.python-version }} ${{ matrix.os }} 
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Kernel output download
       uses: ./
       with:
