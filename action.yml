@@ -92,6 +92,11 @@ inputs:
     required: true
     default: ""
 
+  deploy_kernel:
+    description: "Deploy kernel"
+    required: false
+    default: true
+
   submit_to_competition:
     description: "This is a boolean flag that tell the action to submit the kernel"
     required: true
@@ -101,6 +106,11 @@ inputs:
     description: "The competetion submission message? by default it will be the commit sha and the commit message"
     required: true
     default: ""
+
+  collect_output:
+    description: "To download the out put of the last version"
+    required: false
+    default: false
 
 outputs:
   output:
