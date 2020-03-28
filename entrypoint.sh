@@ -1,12 +1,24 @@
 #!/bin/sh -l
+INPUT_KAGGLE_MAKE_NEW_KERNEL=false
+INPUT_KERNEL_ID=joelhanson/new-test
+INPUT_CODE_FILE_PATH=test/new-test.ipynb
+INPUT_LANGUAGE=python
+INPUT_KERNEL_TYPE=notebook
+INPUT_IS_PRIVATE=true
+INPUT_ENABLE_GPU=false
+INPUT_ENABLE_INTERNET=false
+INPUT_COMPETITION=titanic
+INPUT_SUBMIT_TO_COMPETITION=false
+INPUT_KAGGLE_USERNAME=joelhanson
+INPUT_KAGGLE_KEY=4ceaa75319ed7f7b8edcd1420057d9cc
 export KAGGLE_USERNAME=$INPUT_KAGGLE_USERNAME
 export KAGGLE_KEY=$INPUT_KAGGLE_KEY
 
 pip install kaggle flake8 --upgrade
 
 check_and_apply_competitions_variables() {
-  if [ -z $INPUT_COMPETITION_SOURCES || "$INPUT_COMPETITION_SOURCES" != *"$INPUT_COMPETITION"* ]; then
-    $INPUT_COMPETITION_SOURCES=$INPUT_COMPETITION_SOURCES$INPUT_COMPETITION
+  if [ -z $INPUT_COMPETITION_SOURCES ] || [[ "$INPUT_COMPETITION_SOURCES" != *"$INPUT_COMPETITION"* ]]; then
+    INPUT_COMPETITION_SOURCES=$INPUT_COMPETITION_SOURCES$INPUT_COMPETITION
     echo $INPUT_COMPETITION_SOURCES
   fi
 }
@@ -39,7 +51,10 @@ create_kaggle_metadata() {
     echo "The metadata file created"
   else
     if ! ls -d $INPUT_KAGGLE_METADATA_PATH >/dev/null 2>&1; then
-      mv $INPUT_KAGGLE_METADATA_PATH .
+      echo "The file does not exist"
+      exit 1
+    else
+      cp $INPUT_KAGGLE_METADATA_PATH .
     fi
     echo "The metadata file already exist"
   fi
@@ -53,7 +68,7 @@ check_kernel_status() {
     exit 1
   fi
 
-  if [ "$KERNEL_STATUS" == *"has status \"complete\""* ]; then
+  if [[ $KERNEL_STATUS == *'has status \"complete\"'* ]]; then
     echo "Kernel run is completed"
   else
     echo "Kernel is still running..."
@@ -89,7 +104,7 @@ if [ $INPUT_COLLECT_OUTPUT == true ]; then
   fi
   echo $KERNEL_STATUS
   echo $INPUT_COLLECT_OUTPUT
-  if [ $KERNEL_STATUS == *'has status "complete"'* ]; then
+  if [[ $KERNEL_STATUS == *'has status "complete"'* ]]; then
     echo "Kernel run is completed"
     mkdir -p $GITHUB_WORKSPACE/outputs
     kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
