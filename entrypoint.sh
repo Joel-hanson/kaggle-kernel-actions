@@ -87,8 +87,8 @@ if [ ! -z $INPUT_COLLECT_OUTPUT ]; then
     echo "The kernel not found"
     exit 1
   fi
-
-  if [ "$KERNEL_STATUS" == *"has status \"complete\""* ]; then
+  echo $KERNEL_STATUS
+  if [ $KERNEL_STATUS == *'has status "complete"'* ]; then
     echo "Kernel run is completed"
     mkdir -p $GITHUB_WORKSPACE/outputs
     kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
