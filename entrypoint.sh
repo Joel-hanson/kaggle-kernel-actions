@@ -17,27 +17,27 @@ create_kaggle_metadata() {
     # check if the path is blank
     # TODO: We can download the metadata and code file from kaggle and make a new PR to the repo
     echo "Metadata file path not given"
-    echo '{
-      "id": "$INPUT_KERNEL_ID",
-      "id_no": $INPUT_KERNEL_ID_no,
-      "title": "$INPUT_KERNEL_TITLE",
-      "code_file": "$INPUT_CODE_FILE_PATH",
-      "language": "$INPUT_LANGUAGE",
-      "kernel_type": "$INPUT_KERNEL_TYPE",
-      "is_private": $INPUT_IS_PRIVATE,
-      "enable_gpu": $INPUT_ENABLE_GPU,
-      "enable_internet": $INPUT_ENABLE_INTERNET,
-      "keywords": [$INPUT_KERNEL_KEYWORDS],
-      "dataset_sources": [
-        $INPUT_DATASET_SOURCES
+    echo "{
+      \"id\": \"${INPUT_KERNEL_ID}\",
+      \"id_no\": $INPUT_KERNEL_ID_no,
+      \"title\": \"$INPUT_KERNEL_TITLE\",
+      \"code_file\": \"$INPUT_CODE_FILE_PATH\",
+      \"language\": \"$INPUT_LANGUAGE\",
+      \"kernel_type\": \"$INPUT_KERNEL_TYPE\",
+      \"is_private\": $INPUT_IS_PRIVATE,
+      \"enable_gpu\": $INPUT_ENABLE_GPU,
+      \"enable_internet\": $INPUT_ENABLE_INTERNET,
+      \"keywords\": [$INPUT_KERNEL_KEYWORDS],
+      \"dataset_sources\": [
+        \"$INPUT_DATASET_SOURCES\"
       ],
-      "kernel_sources": [
-        $INPUT_KERNEL_SOURCES
+      \"kernel_sources\": [
+        \"$INPUT_KERNEL_SOURCES\"
       ],
-      "competition_sources": [
-        $INPUT_COMPETITION_SOURCES
+      \"competition_sources\": [
+        \"$INPUT_COMPETITION_SOURCES\"
       ]
-    }' >kernel-metadata.json
+    }" >kernel-metadata.json
     echo "The metadata file created"
   else
     if ! ls -d $INPUT_KAGGLE_METADATA_PATH >/dev/null 2>&1; then
