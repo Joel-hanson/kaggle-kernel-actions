@@ -150,12 +150,13 @@ else
   if $INPUT_DEPLOY_KERNEL; then
     check_kernel_status
     deploy
+    sleep 2m
+    if $INPUT_COLLECT_OUTPUT; then
+      download_outputs
+    fi
   fi
   if $INPUT_SUBMIT_TO_COMPETITION; then
     submit_to_competition
-  fi
-  if $INPUT_COLLECT_OUTPUT;then
-    download_outputs
   fi
 fi
 
