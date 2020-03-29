@@ -133,7 +133,7 @@ download_outputs() {
     echo "zipping"
     mkdir -p $GITHUB_WORKSPACE/outputs
     kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
-    zip -r $GITHUB_WORKSPACE/output/outputs.zip $GITHUB_WORKSPACE/outputs/*
+    zip -r $GITHUB_WORKSPACE/outputs/outputs.zip $GITHUB_WORKSPACE/outputs/*
     exit 0
   else
     echo "Kernel is still running..."
