@@ -114,7 +114,7 @@ download_outputs_as_schedule() {
     echo "Kernel run is completed"
     mkdir -p $GITHUB_WORKSPACE/outputs
     kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
-    zip -r $GITHUB_WORKSPACE/outputs.zip $GITHUB_WORKSPACE/*
+    zip -r $GITHUB_WORKSPACE/outputs/outputs.zip $GITHUB_WORKSPACE/outputs/*
   else
     echo "Kernel is still running..."
     exit 0
@@ -130,9 +130,10 @@ download_outputs() {
   fi
   if [[ $KERNEL_STATUS == *'has status "complete"'* ]]; then
     echo "Kernel run is completed"
+    echo "zipping"
     mkdir -p $GITHUB_WORKSPACE/outputs
     kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
-    zip -r $GITHUB_WORKSPACE/outputs.zip $GITHUB_WORKSPACE/outputs/*
+    zip -r $GITHUB_WORKSPACE/output/outputs.zip $GITHUB_WORKSPACE/outputs/*
     exit 0
   else
     echo "Kernel is still running..."
@@ -150,8 +151,10 @@ else
   if $INPUT_DEPLOY_KERNEL; then
     check_kernel_status
     deploy
-    sleep 2m
+    echo "pushed"
     if $INPUT_COLLECT_OUTPUT; then
+      echo "entered collecting output"
+      sleep 2m
       download_outputs
     fi
   fi
