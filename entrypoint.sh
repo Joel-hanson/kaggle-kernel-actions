@@ -5,21 +5,24 @@ export KAGGLE_KEY=$INPUT_KAGGLE_KEY
 pip install kaggle flake8 --upgrade
 
 make_array() {
+  if [ ! -z $1 ]; then
     IFS=',' read -ra my_array <<<"$(echo -e "$1" | tr -d '[:space:]')"
     array=""
     for i in "${my_array[@]}"; do
-        if [ ! -z $i ];then
-            array+=\"$i\"\,
-        fi
+      if [ ! -z $i ]; then
+        array+=\"$i\"\,
+      fi
     done
     array="${array::-1}"
     echo "$array"
+  else
+    echo
+  fi
 }
-
 
 check_and_apply_competitions_variables() {
   if [ -z $INPUT_COMPETITION_SOURCES ] || [[ "$INPUT_COMPETITION_SOURCES" != *"$INPUT_COMPETITION"* ]]; then
-    INPUT_COMPETITION_SOURCES=`make_array $INPUT_COMPETITION_SOURCES","$INPUT_COMPETITION","`
+    INPUT_COMPETITION_SOURCES=$(make_array $INPUT_COMPETITION_SOURCES","$INPUT_COMPETITION",")
     echo $INPUT_COMPETITION_SOURCES
   fi
 }
@@ -30,8 +33,8 @@ create_kaggle_metadata() {
     # check if the path is blank
     # TODO: We can download the metadata and code file from kaggle and make a new PR to the repo
     echo "Metadata file path not given"
-    INPUT_DATASET_SOURCES=`make_array $INPUT_DATASET_SOURCES`
-    INPUT_KERNEL_SOURCES=`make_array $INPUT_KERNEL_SOURCES`
+    INPUT_DATASET_SOURCES=$(make_array $INPUT_DATASET_SOURCES)
+    INPUT_KERNEL_SOURCES=$(make_array $INPUT_KERNEL_SOURCES)
     echo "{
       \"id\": \"${INPUT_KERNEL_ID}\",
       \"title\": \"$INPUT_KERNEL_TITLE\",
@@ -68,14 +71,11 @@ create_kaggle_metadata() {
 check_kernel_status() {
   KERNEL_STATUS=$(kaggle k status $INPUT_KERNEL_ID)
   RESULT=$?
-  echo "result $RESULT"
-  echo "status $KERNEL_STATUS"
   if [ $RESULT -eq 1 ]; then
     echo "The kernel not found"
     cat kernel-metadata.json
     exit 1
   fi
-  echo $(type [[)
   if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]]; then
     echo "Kernel run is completed"
   else
@@ -103,7 +103,7 @@ submit_to_competition() {
   kaggle c submit -f $INPUT_CODE_FILE_PATH -m $INPUT_SUBMITION_MESSAGE
 }
 
-download_outputs() {
+download_outputs_as_schedule() {
   KERNEL_STATUS=$(kaggle k status $INPUT_KERNEL_ID)
   RESULT=$?
   if [ $RESULT -ne 0 ]; then
@@ -120,9 +120,29 @@ download_outputs() {
     exit 0
   fi
 }
+
+download_outputs() {
+  KERNEL_STATUS=$(kaggle k status $INPUT_KERNEL_ID)
+  RESULT=$?
+  if [ $RESULT -ne 0 ]; then
+    echo "The kernel not found"
+    exit 1
+  fi
+  if [[ $KERNEL_STATUS == *'has status "complete"'* ]]; then
+    echo "Kernel run is completed"
+    mkdir -p $GITHUB_WORKSPACE/outputs
+    kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
+    zip -r $GITHUB_WORKSPACE/outputs.zip $GITHUB_WORKSPACE/*
+    exit 0
+  else
+    echo "Kernel is still running..."
+    sleep 5m
+    download_outputs
+  fi
+}
 # output donwload here
-if $INPUT_COLLECT_OUTPUT; then
-  download_outputs
+if $INPUT_COLLECT_OUTPUT_AS_SCHEDULE; then
+  download_outputs_as_schedule
 else
   # runs here
   check_and_apply_competitions_variables
@@ -133,6 +153,9 @@ else
   fi
   if $INPUT_SUBMIT_TO_COMPETITION; then
     submit_to_competition
+  fi
+  if $INPUT_COLLECT_OUTPUT;then
+    download_outputs
   fi
 fi
 
