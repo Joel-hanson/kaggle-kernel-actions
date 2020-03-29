@@ -16,6 +16,7 @@ create_kaggle_metadata() {
   if [ -z $INPUT_KAGGLE_METADATA_PATH ]; then
     # check if the path is blank
     # TODO: We can download the metadata and code file from kaggle and make a new PR to the repo
+    echo "Metadata file path not given"
     echo '{
       "id": "$INPUT_KERNEL_ID",
       "id_no": $INPUT_KERNEL_ID_no,
@@ -59,7 +60,7 @@ check_kernel_status() {
     cat kernel-metadata.json
     exit 1
   fi
-  echo `type [[`
+  echo $(type [[)
   if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]]; then
     echo "Kernel run is completed"
   else
@@ -75,6 +76,8 @@ deploy() {
     echo "$output"
   else
     echo "There was an error while pushing the latest kernel"
+    echo "$output"
+    cat kernel-metadata.json
     exit 1
   fi
 }
@@ -86,8 +89,7 @@ submit_to_competition() {
   kaggle c submit -f $INPUT_CODE_FILE_PATH -m $INPUT_SUBMITION_MESSAGE
 }
 
-# output donwload here
-if $INPUT_COLLECT_OUTPUT; then
+download_outputs() {
   KERNEL_STATUS=$(kaggle k status $INPUT_KERNEL_ID)
   RESULT=$?
   if [ $RESULT -ne 0 ]; then
@@ -103,6 +105,10 @@ if $INPUT_COLLECT_OUTPUT; then
     echo "Kernel is still running..."
     exit 0
   fi
+}
+# output donwload here
+if $INPUT_COLLECT_OUTPUT; then
+  download_outputs
 else
   # runs here
   check_and_apply_competitions_variables
