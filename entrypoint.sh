@@ -34,7 +34,6 @@ create_kaggle_metadata() {
     INPUT_KERNEL_SOURCES=`make_array $INPUT_KERNEL_SOURCES`
     echo "{
       \"id\": \"${INPUT_KERNEL_ID}\",
-      \"id_no\": $INPUT_KERNEL_ID_no,
       \"title\": \"$INPUT_KERNEL_TITLE\",
       \"code_file\": \"$INPUT_CODE_FILE_PATH\",
       \"language\": \"$INPUT_LANGUAGE\",
@@ -44,13 +43,13 @@ create_kaggle_metadata() {
       \"enable_internet\": $INPUT_ENABLE_INTERNET,
       \"keywords\": [$INPUT_KERNEL_KEYWORDS],
       \"dataset_sources\": [
-        \"$INPUT_DATASET_SOURCES\"
+        $INPUT_DATASET_SOURCES
       ],
       \"kernel_sources\": [
-        \"$INPUT_KERNEL_SOURCES\"
+        $INPUT_KERNEL_SOURCES
       ],
       \"competition_sources\": [
-        \"$INPUT_COMPETITION_SOURCES\"
+        $INPUT_COMPETITION_SOURCES
       ]
     }" >kernel-metadata.json
     echo "The metadata file created"
