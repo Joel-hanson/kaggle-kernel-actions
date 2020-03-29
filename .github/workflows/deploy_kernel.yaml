@@ -34,7 +34,7 @@ jobs:
         submit_to_competition: false
         download_outputs: true
     - name: Download outputs
-      uses: actions/upload-artifacts@v1
+      uses: actions/upload-artifact@v1
       with:
         name: outputs
         path: outputs/outputs.zip
