@@ -15,6 +15,7 @@ create_kaggle_metadata() {
   # create metadata file
   if [ -z $INPUT_KAGGLE_METADATA_PATH ]; then
     # check if the path is blank
+    # TODO: We can download the metadata and code file from kaggle and make a new PR to the repo
     echo '{
       "id": "$INPUT_KERNEL_ID",
       "id_no": $INPUT_KERNEL_ID_no,
