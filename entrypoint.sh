@@ -76,7 +76,7 @@ check_kernel_status() {
     cat kernel-metadata.json
     exit 1
   fi
-  if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]] || [[ $KERNEL_STATUS == *"has status \"cancelRequested\""* ]]; then
+  if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]] || [[ $KERNEL_STATUS == *"has status \"cancelRequested\""* ]] || [[ $KERNEL_STATUS == *"has status \"cancelAcknowledged\""* ]]; then
     echo "Kernel run is completed"
   else
     echo "Kernel is still running..."
@@ -110,7 +110,7 @@ download_outputs_as_schedule() {
     echo "The kernel not found"
     exit 1
   fi
-  if [[ $KERNEL_STATUS == *'has status "complete"'* ]] || [[ $KERNEL_STATUS == *'has status "cancelRequested"'* ]]; then
+  if [[ $KERNEL_STATUS == *'has status "complete"'* ]] || [[ $KERNEL_STATUS == *'has status "cancelRequested"'* ]] || [[ $KERNEL_STATUS == *'has status "cancelAcknowledged"'* ]]; then
     echo "Kernel run is completed"
     mkdir -p $GITHUB_WORKSPACE/outputs
     kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
@@ -128,7 +128,7 @@ download_outputs() {
     echo "The kernel not found"
     exit 1
   fi
-  if [[ $KERNEL_STATUS == *'has status "complete"'* ]] || [[ $KERNEL_STATUS == *'has status "cancelRequested"'* ]]; then
+  if [[ $KERNEL_STATUS == *'has status "complete"'* ]] || [[ $KERNEL_STATUS == *'has status "cancelRequested"'* ]] || [[ $KERNEL_STATUS == *'has status "cancelAcknowledged"'* ]]; then
     echo "Kernel run is completed"
     echo "zipping"
     mkdir -p $GITHUB_WORKSPACE/outputs
