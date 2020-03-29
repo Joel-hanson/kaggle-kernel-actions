@@ -132,7 +132,7 @@ download_outputs() {
     echo "Kernel run is completed"
     mkdir -p $GITHUB_WORKSPACE/outputs
     kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
-    zip -r $GITHUB_WORKSPACE/outputs.zip $GITHUB_WORKSPACE/*
+    zip -r $GITHUB_WORKSPACE/outputs.zip $GITHUB_WORKSPACE/outputs/*
     exit 0
   else
     echo "Kernel is still running..."
