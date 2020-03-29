@@ -112,6 +112,11 @@ inputs:
     required: false
     default: false
 
+  collect_output_as_schedule:
+    description: "To download the out put of the last version"
+    required: false
+    default: false
+
 outputs:
   output:
     description: "This will download the output that you create"
