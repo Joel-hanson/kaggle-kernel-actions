@@ -32,3 +32,4 @@ jobs:
         enable_internet: false
         competition: titanic
         submit_to_competition: false
+        download_outputs: true
