@@ -19,7 +19,7 @@ make_array() {
 
 check_and_apply_competitions_variables() {
   if [ -z $INPUT_COMPETITION_SOURCES ] || [[ "$INPUT_COMPETITION_SOURCES" != *"$INPUT_COMPETITION"* ]]; then
-    INPUT_COMPETITION_SOURCES=make_array $INPUT_COMPETITION_SOURCES","$INPUT_COMPETITION
+    INPUT_COMPETITION_SOURCES=`make_array $INPUT_COMPETITION_SOURCES","$INPUT_COMPETITION","`
     echo $INPUT_COMPETITION_SOURCES
   fi
 }
@@ -30,8 +30,8 @@ create_kaggle_metadata() {
     # check if the path is blank
     # TODO: We can download the metadata and code file from kaggle and make a new PR to the repo
     echo "Metadata file path not given"
-    INPUT_DATASET_SOURCES=make_array $INPUT_DATASET_SOURCES
-    INPUT_KERNEL_SOURCES=make_array $INPUT_KERNEL_SOURCES
+    INPUT_DATASET_SOURCES=`make_array $INPUT_DATASET_SOURCES`
+    INPUT_KERNEL_SOURCES=`make_array $INPUT_KERNEL_SOURCES`
     echo "{
       \"id\": \"${INPUT_KERNEL_ID}\",
       \"id_no\": $INPUT_KERNEL_ID_no,
@@ -54,6 +54,7 @@ create_kaggle_metadata() {
       ]
     }" >kernel-metadata.json
     echo "The metadata file created"
+    cat kernel-metadata.json
   else
     if ! ls -d $INPUT_KAGGLE_METADATA_PATH >/dev/null 2>&1; then
       echo "The file does not exist"
@@ -92,7 +93,6 @@ deploy() {
   else
     echo "There was an error while pushing the latest kernel"
     echo "$output"
-    cat kernel-metadata.json
     exit 1
   fi
 }
