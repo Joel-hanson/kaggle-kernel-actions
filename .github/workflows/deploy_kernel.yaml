@@ -32,7 +32,7 @@ jobs:
         enable_internet: false
         competition: titanic
         submit_to_competition: false
-        download_outputs: true
+        collect_output: true
     - name: Download outputs
       uses: actions/upload-artifact@v1
       with:
