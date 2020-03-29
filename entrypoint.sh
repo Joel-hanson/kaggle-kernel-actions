@@ -76,7 +76,7 @@ check_kernel_status() {
     cat kernel-metadata.json
     exit 1
   fi
-  if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]] || [[ $KERNEL_STATUS == *'has status "cancelRequested"'* ]]; then
+  if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]] || [[ $KERNEL_STATUS == *"has status \"cancelRequested\""* ]]; then
     echo "Kernel run is completed"
   else
     echo "Kernel is still running..."
