@@ -33,6 +33,7 @@ jobs:
         # kaggle_metadata_path: kernel-metadata.json
         kernel_id: joelhanson/github-action-test-1
         code_file_path: test/github-action-test-1.ipynb
+        kernel_title: github-action-test
         language: python
         kernel_type: notebook
         is_private: true
