@@ -183,7 +183,7 @@ download_outputs_as_schedule() {
   if [[ $KERNEL_STATUS == *'has status "complete"'* ]] || [[ $KERNEL_STATUS == *'has status "cancelRequested"'* ]] || [[ $KERNEL_STATUS == *'has status "cancelAcknowledged"'* ]]; then
     format_title "The kernel ran successfully and started downloading the output files - scheduling tasks" "h2" "$yelB" "="
     mkdir -p $GITHUB_WORKSPACE/outputs
-    output=kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
+    output=`kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs`
     RESULT=$?
     if [ $RESULT -eq 0 ]; then
       format_title "$output" "h2" "$yelB" "="
@@ -212,7 +212,7 @@ download_outputs() {
   if [[ $KERNEL_STATUS == *'has status "complete"'* ]] || [[ $KERNEL_STATUS == *'has status "cancelRequested"'* ]] || [[ $KERNEL_STATUS == *'has status "cancelAcknowledged"'* ]]; then
     format_title "The kernel ran successfully and started downloading the output files" "h2" "$yelB" "="
     mkdir -p $GITHUB_WORKSPACE/outputs
-    output=kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs
+    output=`kaggle k output $INPUT_KERNEL_ID -p $GITHUB_WORKSPACE/outputs`
     RESULT=$?
     if [ $RESULT -eq 0 ]; then
       format_title "$output" "h2" "$yelB" "="
@@ -244,7 +244,7 @@ else
     check_kernel_status
     deploy
     if $INPUT_COLLECT_OUTPUT; then
-      sleep 2m
+      sleep 1m
       download_outputs
     fi
   fi
