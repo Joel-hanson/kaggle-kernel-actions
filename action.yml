@@ -3,6 +3,19 @@ description: "Github action to upload kernels to kaggle."
 author: "Joel-hanson@github.com"
 
 inputs:
+
+  kaggle_username:
+    description:
+      "The kaggle username"
+    required: true
+    default: ""
+
+  kaggle_key:
+    description:
+      "The kaggle access API token to learn more visit https://github.com/Kaggle/kaggle-api#api-credentials"
+    required: true
+    default: ""
+
   kaggle_make_new_kernel:
     description:
       "This should be enabled you are making a new kernel and pushing it to kaggle"
@@ -14,7 +27,7 @@ inputs:
       "The path to the kaggle metadata file
       further details can be found in the wiki https://github.com/Kaggle/kaggle-api/wiki/Kernel-Metadata"
     required: false
-    default: ""
+    default: "."
 
   kernel_id:
     description:
@@ -25,7 +38,7 @@ inputs:
     required: true
     default: ""
 
-  kenel_id_no:
+  kernel_id_no:
     description: "The kernel's numeric ID. One of id or id_no must be specified. If both are, id_no will be preferred."
     required: false
     default: ""
@@ -50,7 +63,7 @@ inputs:
   kernel_type:
     description: "The type of kernel. Valid options are script and notebook. Required."
     required: true
-    default: "main.py"
+    default: "notebook"
 
   is_private:
     description: "Whether or not the kernel should be private. If not specified, will be true."
