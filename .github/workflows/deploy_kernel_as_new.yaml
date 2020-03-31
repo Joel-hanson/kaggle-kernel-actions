@@ -1,16 +1,12 @@
 name: Push already exists kernel to kaggle as new
 
-on:
-  push:
-    branches:
-      - master
+on: push
 jobs:
   deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
-        os: [ ubuntu-latest ]
         python-version: [ '2.7.17', '3.6.10' ]
     name: Python ${{ matrix.python-version }} ${{ matrix.os }}
 
