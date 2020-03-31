@@ -7,7 +7,7 @@
 </p>
 
 <h1 align="center">
-  Github action to push Kaggle (https://kaggle.com) kernels from github and also for submitting them to their respective competitions.
+  Github action to push Kaggle kernels from github and also for submitting them to their respective competitions.
 </h1>
 
 <p align="center">
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img src="./assets/screenshot.png">
+  <img src="./assets/screeshot.png">
 </p>
 <p align="center">
   <img src="./assets/kernel_version.png">
@@ -183,4 +183,5 @@ Container images built with this project include third party materials. As with 
 1. Where to find the kernel_id?
 
 You can find the kernel_id by going to the top menu of the kernel and clicking `copy api command`.
+
 <img width="150px" alt="kernel_id" src="./assets/kernel_id.png">

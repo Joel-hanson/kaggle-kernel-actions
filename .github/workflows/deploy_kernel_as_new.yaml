@@ -1,6 +1,6 @@
 name: Push already exists kernel to kaggle as new
 
-on:
+on: 
   push:
     branches:
       - master
@@ -9,10 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
         os: [ ubuntu-latest ]
-        python-version: [ '2.7.17', '3.6.10' ]
-    name: Python ${{ matrix.python-version }} ${{ matrix.os }}
+    name: Python ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v2
@@ -25,6 +23,7 @@ jobs:
         kaggle_metadata_path: test/kernel-metadata.json
         kernel_id: joelhanson/github-action-test
         competition: titanic
+
     - name: Kaggle deploy as new
       uses: ./
       with:
