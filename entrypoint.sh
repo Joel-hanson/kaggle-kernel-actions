@@ -84,10 +84,10 @@ create_kaggle_metadata() {
   if [ -z $INPUT_KAGGLE_METADATA_PATH ]; then
     # check if the path is blank
     # TODO: We can download the metadata and code file from kaggle and make a new PR to the repo
-    echo "Metadata file path not given"
     INPUT_DATASET_SOURCES=$(make_array $INPUT_DATASET_SOURCES)
     INPUT_KERNEL_SOURCES=$(make_array $INPUT_KERNEL_SOURCES)
-    echo "{
+    echo "
+    {
       \"id\": \"${INPUT_KERNEL_ID}\",
       \"title\": \"$INPUT_KERNEL_TITLE\",
       \"code_file\": \"$INPUT_CODE_FILE_PATH\",
