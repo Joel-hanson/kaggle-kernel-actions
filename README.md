@@ -7,7 +7,7 @@
 </p>
 
 <h1 align="center">
-  Github action to push Kaggle (https://kaggle.com) kernels from github and also for submitting them to their respective competitions.
+  Github action to push Kaggle kernels from github and also for submitting them to their respective competitions.
 </h1>
 
 <p align="center">
