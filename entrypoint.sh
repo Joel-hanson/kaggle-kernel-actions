@@ -190,7 +190,9 @@ download_outputs_as_schedule() {
       echo "$output"
       exit 1
     fi
-    zip -r "$GITHUB_WORKSPACE/outputs/outputs.zip" $GITHUB_WORKSPACE/outputs/*
+    zip -r $GITHUB_WORKSPACE/outputs/outputs.zip $GITHUB_WORKSPACE/outputs/*
+    echo `ls $GITHUB_WORKSPACE`
+    echo `ls $GITHUB_WORKSPACE/outputs`
     format_title "The kernel output are saved to the github artifact folder - scheduling tasks" "h2" "$yelB" "="
   else
     format_title "Kernel is still running... - scheduling tasks" "h2" "$yelB" "="
@@ -218,7 +220,9 @@ download_outputs() {
       exit 1
     fi
     echo "zipping"
-    zip -r "$GITHUB_WORKSPACE/outputs/outputs.zip" $GITHUB_WORKSPACE/outputs/*
+    zip -r $GITHUB_WORKSPACE/outputs/outputs.zip $GITHUB_WORKSPACE/outputs/*
+    echo `ls $GITHUB_WORKSPACE`
+    echo `ls $GITHUB_WORKSPACE/outputs`
     format_title "The kernel output are saved to the github artifact folder" "h2" "$yelB" "="
     exit 0
   else
