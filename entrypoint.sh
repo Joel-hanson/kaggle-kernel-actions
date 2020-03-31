@@ -134,14 +134,15 @@ check_kernel_status() {
       echo $KERNEL_STATUS
       exit 1
     fi
-
-  fi
-  if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]] || [[ $KERNEL_STATUS == *"has status \"cancelRequested\""* ]] || [[ $KERNEL_STATUS == *"has status \"cancelAcknowledged\""* ]]; then
-    format_title "The Kernel ran successfully" "h2" "$yelB" "="
   else
-    format_title "The Kernel is still running..." "h2" "$yelB" "="
-    exit 1
+    if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]] || [[ $KERNEL_STATUS == *"has status \"cancelRequested\""* ]] || [[ $KERNEL_STATUS == *"has status \"cancelAcknowledged\""* ]]; then
+      format_title "The Kernel ran successfully" "h2" "$yelB" "="
+    else
+      format_title "The Kernel is still running..." "h2" "$yelB" "="
+      exit 1
+    fi
   fi
+
 }
 
 deploy() {
