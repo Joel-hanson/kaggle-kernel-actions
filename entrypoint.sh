@@ -162,34 +162,3 @@ else
     submit_to_competition
   fi
 fi
-
-# The step user follow:
-# - There is case where the user is coming as a newbee
-# - The newbee will create a python file or jupter file and then he tries to push his code
-
-# - There will be person who will push the existing code
-# - The existing code person should provide the meta and the login details.
-# - He uploads his kernel and pushes the code
-
-# - Check for the linting
-# - So when he tries push we should check for the keys and the username, and we should show message for the event which is happening
-# - The checks will be weather the username and password are correct
-# - Is the push details provided as file or the args
-# - Make a PR to make the meta file. $(this needs to be reconsidered)
-# - Make a shedule to check action for the getting the current state
-# - show success message
-# - Save the output and the results from kaggle
-# - Make a PR for saving the output file
-
-# The things to collect:
-# - They should enter the username and the key
-# - They should make files or upload files
-# - They should create the metadata file or update the metadata by args
-# - Check if a version is running right now for the kernel
-# - Submit the code while merging it to a new branch
-
-# consider not needed but can do
-# - The custom badge
-# - The website to store all the results accuracy
-
-# jupyter nbconvert test/*.ipynb --stdout --to script | flake8 - --ignore=W391
