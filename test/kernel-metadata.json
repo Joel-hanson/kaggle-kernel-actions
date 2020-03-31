@@ -1,7 +1,7 @@
 {
-  "id": "joelhanson/github-action-test-3",
+  "id": "joelhanson/github-action-test",
   "title": "",
-  "code_file": "github_action_test.ipynb",
+  "code_file": "github-action-test.ipynb",
   "language": "python",
   "kernel_type": "notebook",
   "is_private": true,

@@ -29,3 +29,5 @@
 # - The website to store all the results accuracy
 
 # jupyter nbconvert test/*.ipynb --stdout --to script | flake8 - --ignore=W391
+
+TODO: The output file checking should be with custom timeperiod
