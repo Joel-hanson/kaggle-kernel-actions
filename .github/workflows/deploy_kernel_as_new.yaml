@@ -1,4 +1,4 @@
-name: Push already exists kernel to kaggle as new
+name: Push kaggle kernels
 
 on: 
   push:
