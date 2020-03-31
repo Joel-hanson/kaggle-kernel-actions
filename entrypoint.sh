@@ -1,6 +1,7 @@
 #!/bin/bash
 export KAGGLE_USERNAME=$INPUT_KAGGLE_USERNAME
 export KAGGLE_KEY=$INPUT_KAGGLE_KEY
+KAGGLE_FOLDER_PATH=""
 
 pip install kaggle flake8 --upgrade
 
@@ -109,6 +110,7 @@ create_kaggle_metadata() {
     }" >kernel-metadata.json
     format_title "The metadata file was created" "h2" "$yelB" "="
     cat kernel-metadata.json
+    KAGGLE_FOLDER_PATH="."
   else
     if ! ls -d $INPUT_KAGGLE_METADATA_PATH >/dev/null 2>&1; then
       format_title "The file does not exist" "h2" "$yelB" "="
@@ -117,6 +119,7 @@ create_kaggle_metadata() {
       cp -n $INPUT_KAGGLE_METADATA_PATH .
     fi
     format_title "The metadata file already exist" "h2" "$yelB" "="
+    KAGGLE_FOLDER_PATH=$(dirname $INPUT_KAGGLE_METADATA_PATH)
   fi
 }
 
@@ -141,7 +144,7 @@ check_kernel_status() {
 }
 
 deploy() {
-  output=$(kaggle k push)
+  output=$(kaggle k push -p $KAGGLE_FOLDER_PATH)
   RESULT=$?
   if [ $RESULT -eq 0 ]; then
     format_title "$output" "h2" "$yelB" "="
