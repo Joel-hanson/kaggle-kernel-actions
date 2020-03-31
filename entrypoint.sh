@@ -125,6 +125,10 @@ check_kernel_status() {
   RESULT=$?
   if [ $RESULT -eq 1 ]; then
     format_title "The kernel not found while checking status" "h2" "$yelB" "="
+    if $INPUT_KAGGLE_MAKE_NEW_KERNEL;then
+      format_title "Pushing this kernel as a new one" "h2" "$yelB" "="
+      exit 0
+    fi
     echo $KERNEL_STATUS
     exit 1
   fi
