@@ -115,8 +115,6 @@ create_kaggle_metadata() {
     if ! ls -d $INPUT_KAGGLE_METADATA_PATH >/dev/null 2>&1; then
       format_title "The file does not exist" "h2" "$yelB" "="
       exit 1
-    else
-      cp -n $INPUT_KAGGLE_METADATA_PATH .
     fi
     format_title "The metadata file already exist" "h2" "$yelB" "="
     KAGGLE_FOLDER_PATH=$(dirname $INPUT_KAGGLE_METADATA_PATH)
