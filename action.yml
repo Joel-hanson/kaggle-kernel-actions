@@ -27,7 +27,7 @@ inputs:
       "The path to the kaggle metadata file
       further details can be found in the wiki https://github.com/Kaggle/kaggle-api/wiki/Kernel-Metadata"
     required: false
-    default: "."
+    default: ""
 
   kernel_id:
     description:
