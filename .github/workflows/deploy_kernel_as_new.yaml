@@ -23,7 +23,6 @@ jobs:
         kaggle_metadata_path: test/kernel-metadata.json
         kernel_id: joelhanson/github-action-test
         competition: titanic
-        deploy_kernel: false # This should be removed as this is to force test pass
 
     - name: Kaggle deploy as new
       uses: ./
@@ -42,7 +41,6 @@ jobs:
         competition: titanic
         submit_to_competition: false
         collect_output: true
-        deploy_kernel: false # This should be removed as this is to force test pass
 
     # - name: Download outputs
     #   uses: actions/upload-artifact@v1
