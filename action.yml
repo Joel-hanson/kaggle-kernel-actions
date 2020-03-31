@@ -100,7 +100,7 @@ inputs:
   submit_to_competition:
     description: "This is a boolean flag that tell the action to submit the kernel"
     required: true
-    default: ""
+    default: false
 
   submition_message:
     description: "The competetion submission message? by default it will be the commit sha and the commit message"
