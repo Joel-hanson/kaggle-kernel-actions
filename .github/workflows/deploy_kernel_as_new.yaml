@@ -23,6 +23,7 @@ jobs:
         kaggle_make_new_kernel: true
         kaggle_metadata_path: test/kernel-metadata.json
         kernel_id: joelhanson/github-action-test
+        kernel_title: github-action-test
         competition: titanic
     - name: Kaggle deploy as new
       uses: ./
