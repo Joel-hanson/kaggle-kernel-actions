@@ -15,8 +15,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Kaggle Deploy And Commit
+    - name: Kaggle deploy from existing metadata file
+      uses: ./
+      with:
+        kaggle_username: ${{ secrets.kaggle_username }}
+        kaggle_key: ${{ secrets.kaggle_key }}
+        kaggle_make_new_kernel: true
+        kaggle_metadata_path: test/kernel-metadata.json
+        kernel_id: joelhanson/github-action-test
+        competition: titanic
+    - name: Kaggle deploy as new
       uses: ./
       with:
         kaggle_username: ${{ secrets.kaggle_username }}
