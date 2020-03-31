@@ -128,12 +128,13 @@ check_kernel_status() {
   RESULT=$?
   if [ $RESULT -eq 1 ]; then
     format_title "The kernel not found while checking status" "h2" "$yelB" "="
-    if $INPUT_KAGGLE_MAKE_NEW_KERNEL;then
+    if $INPUT_KAGGLE_MAKE_NEW_KERNEL; then
       format_title "Pushing this kernel as a new one" "h2" "$yelB" "="
-      exit 0
+    else
+      echo $KERNEL_STATUS
+      exit 1
     fi
-    echo $KERNEL_STATUS
-    exit 1
+
   fi
   if [[ "$KERNEL_STATUS" == *"has status \"complete\""* ]] || [[ $KERNEL_STATUS == *"has status \"cancelRequested\""* ]] || [[ $KERNEL_STATUS == *"has status \"cancelAcknowledged\""* ]]; then
     format_title "The Kernel ran successfully" "h2" "$yelB" "="
@@ -191,8 +192,8 @@ download_outputs_as_schedule() {
       exit 1
     fi
     zip -r $GITHUB_WORKSPACE/outputs/outputs.zip $GITHUB_WORKSPACE/outputs/*
-    echo `ls $GITHUB_WORKSPACE`
-    echo `ls $GITHUB_WORKSPACE/outputs`
+    echo $(ls $GITHUB_WORKSPACE)
+    echo $(ls $GITHUB_WORKSPACE/outputs)
     format_title "The kernel output are saved to the github artifact folder - scheduling tasks" "h2" "$yelB" "="
   else
     format_title "Kernel is still running... - scheduling tasks" "h2" "$yelB" "="
@@ -221,8 +222,8 @@ download_outputs() {
     fi
     echo "zipping"
     zip -r $GITHUB_WORKSPACE/outputs/outputs.zip $GITHUB_WORKSPACE/outputs/*
-    echo `ls $GITHUB_WORKSPACE`
-    echo `ls $GITHUB_WORKSPACE/outputs`
+    echo $(ls $GITHUB_WORKSPACE)
+    echo $(ls $GITHUB_WORKSPACE/outputs)
     format_title "The kernel output are saved to the github artifact folder" "h2" "$yelB" "="
     exit 0
   else
