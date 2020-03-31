@@ -1,4 +1,4 @@
-![Kaggle kernel actions](https://github.com/Joel-hanson/kaggle-notebook-actions/workflows/Push%20already%20exists%20kernel%20to%20kaggle%20as%20new/badge.svg)
+![Push kaggle kernels](https://github.com/Joel-hanson/kaggle-kernel-actions/workflows/Push%20kaggle%20kernels/badge.svg)
 
 <p align="center">
   <a href="https://github.com/marketplace/actions/bandit-report-artifacts">
