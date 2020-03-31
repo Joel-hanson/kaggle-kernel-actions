@@ -1,5 +1,5 @@
-name: "Kaggle github actions"
-description: "Github action to upload kernels to kaggle."
+name: "Kaggle kernel actions"
+description: "Github action to push Kaggle kernels from github and also for submitting them to their respective competitions."
 author: "Joel-hanson@github.com"
 
 inputs:
