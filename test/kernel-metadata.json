@@ -1,14 +1,16 @@
 {
   "id": "joelhanson/github-action-test",
+  "id_no": 8690817,
   "title": "github-action-test",
   "code_file": "github-action-test.ipynb",
   "language": "python",
   "kernel_type": "notebook",
   "is_private": true,
   "enable_gpu": false,
-   "enable_tpu": true,
-  "enable_internet": false,
-  "keywords": [],
+  "enable_internet": true,
+  "keywords": [
+    "tpu"
+  ],
   "dataset_sources": [
     "joelhanson/testdataset"
   ],
